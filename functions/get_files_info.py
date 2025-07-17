@@ -1,5 +1,6 @@
 import os
 
+from functions.utils import get_abspaths, outside_of_working_dir
 from google.genai import types
 
 schema_get_files_info = types.FunctionDeclaration(
@@ -18,11 +19,9 @@ schema_get_files_info = types.FunctionDeclaration(
 
 def get_files_info(working_directory, directory="."):
     try:
-        working_dir_abs = os.path.abspath(working_directory) + os.path.sep
-        target_path = os.path.join(working_directory, directory)
-        target_abs = os.path.abspath(target_path)
+        working_dir_abs, target_abs = get_abspaths(working_directory, target=directory)
 
-        if not target_abs.startswith(working_dir_abs) and target_abs != working_dir_abs.rstrip(os.path.sep):
+        if outside_of_working_dir(working_dir_abs, target_abs) and _target_is_not_working_dir(working_dir_abs, target_abs):
             return f'Error: Cannot list "{directory}" as it is outside the permitted working directory'
         
         if not os.path.isdir(target_abs):
@@ -37,3 +36,6 @@ def get_files_info(working_directory, directory="."):
     
     except Exception as e:
         return f'Error: {str(e)}'
+
+def _target_is_not_working_dir(working_dir_abs, target_abs):
+    return target_abs != working_dir_abs.rstrip(os.path.sep) 

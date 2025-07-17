@@ -1,4 +1,6 @@
 import os
+
+from functions.utils import get_abspaths, outside_of_working_dir
 from google.genai import types
 
 schema_write_file = types.FunctionDeclaration(
@@ -22,11 +24,9 @@ schema_write_file = types.FunctionDeclaration(
 
 def write_file(working_directory, file_path, content):
     try:
-        working_dir_abs = os.path.abspath(working_directory)
-        target_path = os.path.join(working_directory, file_path)
-        target_abs = os.path.abspath(target_path)
+        working_dir_abs, target_abs = get_abspaths(working_directory, target=file_path)
 
-        if not target_abs.startswith(working_dir_abs):
+        if outside_of_working_dir(working_dir_abs, target_abs):
             return f'Error: Cannot write to "{file_path}" as it is outside the permitted working directory'
         
         if target_abs:
