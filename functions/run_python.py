@@ -2,6 +2,26 @@ import os
 import subprocess
 
 from config import TIMEOUT
+from google.genai import types
+
+schema_run_python_file = types.FunctionDeclaration(
+    name="run_python_file",
+    description="Runs the specified python file, constrained to the working directory. Returns the output of the subprocess",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "directory": types.Schema(
+                type=types.Type.STRING,
+                description="The file to run, relative to the working directory.",
+            ),
+
+            "args": types.Schema(
+                type=types.Type.ARRAY,
+                description="Optional arguments to run the provided python file with."
+            ),
+        },
+    ),
+)
 
 def run_python_file(working_directory, file_path, args=[]):
     working_dir_abs = os.path.abspath(working_directory)
