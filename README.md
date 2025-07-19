@@ -12,4 +12,4 @@ This project implements an AI coding agent that can:
 
 ## Warning
 
-This agent is able to write files and execute python scripts, which are cointained in a working directory. For security reasons, the working directory is hard coded in call_function.py. Still, it probably is NOT completly safe to use this agent!
+This agent is able to write files and execute python scripts, which are cointained in a working directory. For security reasons, the working directory has to be manually set in config.py. Still, it probably is NOT completly safe to use this agent!

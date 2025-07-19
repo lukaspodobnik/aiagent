@@ -1,4 +1,5 @@
 from google.genai import types
+from config import WORKING_DIRECTORY
 from functions.get_files_info import get_files_info
 from functions.get_file_content import get_file_content
 from functions.write_file import write_file
@@ -19,7 +20,7 @@ def call_function(function_call: types.FunctionCall, verbose=False) -> types.Con
 
     function = available_functions.get(function_call.name, None)
     args = dict(function_call.args)
-    args["working_directory"] = "./calculator"
+    args["working_directory"] = WORKING_DIRECTORY
     
     if not function:
         return types.Content(
