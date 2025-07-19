@@ -6,7 +6,7 @@ from functions.run_python import run_python_file
 
 def call_function(function_call: types.FunctionCall, verbose=False) -> types.Content:
     if verbose:
-        print(f" - Calling function: {function_call.name}({function_call.args})")
+        print(f"\n - Calling function: {function_call.name}({function_call.args})")
     else:
         print(f" - Calling function: {function_call.name}")
 

@@ -16,7 +16,7 @@ When a user asks a question or makes a request, make a function call plan. You c
 All paths you provide should be relative to the working directory.
 You do not need to specify the working directory in your function calls as it is automatically injected for security reasons.
 
-Always start by exploring the working directory (available files and directories) using your "list files and directories" tool.
+Always start by exploring the working directory (available files and directories) using your "list files and directories" tool; to do that use the function "get_files_info(directory=".")".
 
 Until you are finished with your task, you must include exaclty one function call per response. When you are finished, you must not include a function call in your response.
 """
